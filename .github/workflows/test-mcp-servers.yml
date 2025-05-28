@@ -33,6 +33,12 @@ jobs:
           # Change to test directory so it finds .mcp.json
           CLAUDE_WORKING_DIR: ${{ github.workspace }}/test/mcp-test
 
+      - uses: actions/checkout@v2
+      - name: Setup upterm session
+        uses: lhotari/action-upterm@v1
+        with:
+          limit-access-to-actor: true
+
       - name: Check MCP server output
         run: |
           echo "Checking Claude settings in home directory..."
