@@ -5,7 +5,7 @@ export async function setupClaudeCodeSettings() {
   const home = homedir();
   const globalSettingsPath = `${home}/.claude/settings.json`;
   const localSettingsPath = `.claude/settings.local.json`;
-  
+
   console.log(`Setting up Claude settings in both locations:`);
   console.log(`  - Global: ${globalSettingsPath}`);
   console.log(`  - Local: ${localSettingsPath}`);
@@ -32,7 +32,7 @@ export async function setupClaudeCodeSettings() {
   }
 
   globalSettings.enableAllProjectMcpServers = true;
-  
+
   // Process local settings
   let localSettings: Record<string, unknown> = {};
   try {
@@ -53,9 +53,12 @@ export async function setupClaudeCodeSettings() {
   // Write both settings files
   console.log("Writing settings with enableAllProjectMcpServers: true");
   await $`echo ${JSON.stringify(globalSettings, null, 2)} > ${globalSettingsPath}`.quiet();
-  await $`echo ${JSON.stringify(localSettings, null, 2)} > ${localSettingsPath}`.quiet();
-  
+  // await $`echo ${JSON.stringify(localSettings, null, 2)} > ${localSettingsPath}`.quiet();
+
   console.log("Settings saved successfully to both locations");
-  console.log("Final global settings:", JSON.stringify(globalSettings, null, 2));
+  console.log(
+    "Final global settings:",
+    JSON.stringify(globalSettings, null, 2),
+  );
   console.log("Final local settings:", JSON.stringify(localSettings, null, 2));
 }
