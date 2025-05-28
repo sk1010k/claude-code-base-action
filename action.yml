@@ -98,6 +98,11 @@ runs:
       shell: bash
       id: run_claude
       run: |
+        # Change to CLAUDE_WORKING_DIR if set (for running in custom directories)
+        if [ -n "$CLAUDE_WORKING_DIR" ]; then
+          echo "Changing directory to CLAUDE_WORKING_DIR: $CLAUDE_WORKING_DIR"
+          cd "$CLAUDE_WORKING_DIR"
+        fi
         bun run ${{ github.action_path }}/src/index.ts
       env:
         # Model configuration
