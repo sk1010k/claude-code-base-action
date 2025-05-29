@@ -14,7 +14,8 @@ on:
       - "v*.*.*" # Trigger on version tags like v1.2.3
 
 permissions:
-  contents: read
+  contents: write
+  pull-requests: write
 
 jobs:
   update-downstream:
