@@ -2,6 +2,11 @@ name: Update Downstream Action
 
 # This workflow updates the anthropics/claude-code-action repository
 # when a new release tag is created in this repository
+#
+# IMPORTANT: This workflow uses RELEASE_PAT instead of GITHUB_TOKEN for PR creation because:
+# 1. GITHUB_TOKEN doesn't trigger workflows recursively, preventing CI from running on the PR
+# 2. RELEASE_PAT has higher permissions needed for cross-repo access
+# We use GITHUB_TOKEN for commits via the gh api to get commit signing
 
 on:
   push:
@@ -81,7 +86,7 @@ jobs:
             -f sha="$FILE_SHA" \
             -f branch="$BRANCH_NAME"
         env:
-          GH_TOKEN: ${{ secrets.RELEASE_PAT }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create Pull Request
         run: |
